@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private bool grounded = false;
-    public float gravitymodifier = 1f;
     public float jumpforce;
     public float movementSpeed;
     private Rigidbody2D Pico;
@@ -15,18 +14,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Pico = gameObject.GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-
-            transform.Translate(Vector2.up * jumpforce * Time.deltaTime);
-            grounded = false;
-
-        }
-
     }
 
     // Update is called once per frame
@@ -42,14 +29,21 @@ public class PlayerController : MonoBehaviour
         }
         if (!grounded)
         {
-            transform.Translate(Physics2D.gravity * gravitymodifier * Time.deltaTime);
+            transform.Translate(Physics2D.gravity*Time.deltaTime);
         }
 
         if (Physics2D.Raycast((Vector2)transform.position + (Vector2.down * 0.7f) , Vector2.down,0.1f) && !grounded)
         { 
             grounded = true;
         }
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            Pico.isKinematic = false;
+            Pico.AddForce(Vector2.up * jumpforce);
+            Pico.isKinematic = true;
+            grounded = false;
 
+        }
 
 
     }
