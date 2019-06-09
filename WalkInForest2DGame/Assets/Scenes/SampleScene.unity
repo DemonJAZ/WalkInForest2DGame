@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f531e09e2ad2fb440b4eed7605863143, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -185,7 +185,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 46
+  field of view: 50
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -210,7 +210,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0.000000013290439, z: 0, w: 1}
+  m_LocalRotation: {x: -0.12148209, y: 0.00000016971669, z: 0.000000020771477, w: 0.99259365}
   m_LocalPosition: {x: -8.29, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 822410050}
   m_Layer: 0
   m_Name: grondwalk
-  m_TagString: Untagged
+  m_TagString: WalkGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1345100766}
   m_Follow: {fileID: 1345100766}
   m_Lens:
-    FieldOfView: 46
+    FieldOfView: 50
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -633,7 +633,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023744809}
-  m_LocalRotation: {x: 0, y: 0.000000013290439, z: 0, w: 1}
+  m_LocalRotation: {x: -0.12148209, y: 0.00000016971669, z: 0.000000020771477, w: 0.99259365}
   m_LocalPosition: {x: -8.29, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -680,8 +680,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!70 &1345100764
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -772,7 +772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab02155fc865142d3bc1f9c978ba2b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpforce: 4
+  gravitymodifier: 0.2
+  jumpspeed: 20
   movementSpeed: 5
 --- !u!1 &1656977917
 GameObject:
@@ -882,7 +883,7 @@ MonoBehaviour:
   m_HorizontalDamping: 0.5
   m_VerticalDamping: 0.5
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.767
   m_DeadZoneWidth: 0.1
   m_DeadZoneHeight: 0.1
   m_SoftZoneWidth: 0.8
