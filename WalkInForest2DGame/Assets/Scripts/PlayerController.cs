@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 Velocity;
     private Rigidbody2D Pico;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,46 +20,74 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+
+        Debug.DrawRay(Pico.position + new Vector2(0.3f,-0.6f), Vector2.down*0.1f,Color.red);
+        Debug.DrawRay(Pico.position + new Vector2(-0.3f,-0.6f), Vector2.down * 0.1f, Color.red);
+        Debug.DrawRay(Pico.position + new Vector2(0f, -0.7f), Vector2.down * 0.1f, Color.red);
+
+        Debug.DrawRay(Pico.position + new Vector2(0.34f, 0.6f), Vector2.right * 0.1f, Color.red);
+        Debug.DrawRay(Pico.position + new Vector2(0.34f, 0f), Vector2.right * 0.1f, Color.red);
+        Debug.DrawRay(Pico.position + new Vector2(0.34f, -0.6f), Vector2.right * 0.1f, Color.red);
+
+
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Velocity.y = jumpspeed * Time.deltaTime;
-            transform.Translate(Velocity);
             grounded = false;
+            transform.Translate(Velocity);
 
         }
     }
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
+        { 
+            Velocity.x = -movementSpeed * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.D))
         {
             Velocity.x = movementSpeed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            Velocity.x = -movementSpeed * Time.deltaTime;
-        }
         else
         {
-            Velocity.x = 0.0f; //to set velocity to zero when no key is pressed.
+            Velocity.x = Vector2.zero.x;
+        }
+
+        if ( (Velocity.x != 0.0f) && HorizontalCollision() )
+        {
+            Velocity.x = Vector2.zero.x;
         }
 
         if (!grounded)
         {
-
-            Velocity.y += (Physics2D.gravity.y * gravitymodifier * Time.deltaTime);
+            Velocity.y += Physics2D.gravity.y * gravitymodifier * Time.deltaTime;
         }
 
-
-
-        if (Physics2D.Raycast((Vector2)transform.position + (Vector2.down * 0.7f), Vector2.down, 0.1f) && !grounded && Velocity.y<=0)
+        if (VerticalCollisions() && !grounded)
         {
+            Velocity.y = 0;
             grounded = true;
-            Velocity.y = 0.0f; // to stop speed in vertical direction.
         }
+
 
         transform.Translate(Velocity);
     }
 
+    private bool VerticalCollisions()
+    {
+        return Physics2D.Raycast(Pico.position + new Vector2(0.3f, -0.6f), Vector2.down, 0.1f) ||
+                Physics2D.Raycast(Pico.position + new Vector2(-0.3f, -0.6f), Vector2.down, 0.1f) ||
+                Physics2D.Raycast(Pico.position + new Vector2(0f, -0.7f), Vector2.down, 0.1f);
+    }
+    private bool HorizontalCollision()
+    {
+        float directionX = Mathf.Sign(Velocity.x);
+        bool v = (directionX == -1.0f);
+        Vector2 castDirection = v ? Vector2.left : Vector2.right;
 
+        return Physics2D.Raycast(Pico.position + new Vector2(directionX *.34f, -0.6f), castDirection, 0.1f) ||
+                Physics2D.Raycast(Pico.position + new Vector2(directionX * 0.34f, -0.6f), castDirection, 0.1f) ||
+                Physics2D.Raycast(Pico.position + new Vector2(directionX * 0.34f, -0.7f), castDirection, 0.1f);
+    }
 }
