@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Velocity.y = jumpspeed * Time.deltaTime;
-            grounded = false;
-            transform.Translate(Velocity);
 
+            Pico.position += Velocity;
+            grounded = false;
         }
     }
     // Update is called once per frame
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (!grounded)
         {
-            Velocity.y += Physics2D.gravity.y * gravitymodifier * Time.deltaTime;
+            Velocity.y += gravitymodifier * Time.deltaTime;
         }
 
         if (VerticalCollisions() && !grounded)
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        transform.Translate(Velocity);
+        Pico.position += Velocity;
     }
 
     private bool VerticalCollisions()
